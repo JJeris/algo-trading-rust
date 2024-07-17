@@ -32,7 +32,7 @@ impl OrderBook {
 						println!("Already have a limit.");
 					},
 					None => {
-						println!("Don't have a limit.");
+						
 					},
 				}
 			},

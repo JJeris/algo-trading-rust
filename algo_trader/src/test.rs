@@ -1,4 +1,4 @@
-use crate::{BidOrAsk, Limit, Order, Price};
+use crate::{BidOrAsk, Limit, Order, OrderBook, Price};
 
 /// Basic test of the projects functionality.
 pub fn test() -> Result<(), String> {
@@ -23,19 +23,39 @@ pub fn test() -> Result<(), String> {
             return Err(format!("{}", err));
         }
     };
-    // Add order to the limit.
-    match limit.add_order(buy_order) {
+    // Create an orderbook.
+    let mut orderbook = match OrderBook::new() {
+        Ok(val) => {val},
+        Err(err) => {
+            return Err(format!("{}", err));
+        }
+    };
+    // Add order to orderbook.
+    match orderbook.add_order(12.2, buy_order) {
         Ok(_) => {},
         Err(err) => {
             return Err(format!("{}", err));
         }
     };
-    match limit.add_order(sell_order) {
-        Ok(_) => {},
-        Err(err) => {
-            return Err(format!("{}", err));
-        }
-    };
-    println!("{:#?}", limit);
+    
+    println!("{:#?}", orderbook);
+    
+    // // Add order to the limit.
+    // match limit.add_order(buy_order) {
+    //     Ok(_) => {},
+    //     Err(err) => {
+    //         return Err(format!("{}", err));
+    //     }
+    // };
+    // match limit.add_order(sell_order) {
+    //     Ok(_) => {},
+    //     Err(err) => {
+    //         return Err(format!("{}", err));
+    //     }
+    // };
+
+
+
+    // println!("{:#?}", limit);
     Ok(())
 }
