@@ -5,3 +5,18 @@ pub struct Order {
     pub size: f64,
     pub bid_or_ask: BidOrAsk 
 }
+
+#[derive(serde::Serialize, serde::Deserialize, Debug, Default, Clone)]
+pub struct Price {
+    pub integral: u64,
+    pub fractional: u64,
+    pub scalar: u64,
+}
+
+
+#[derive(serde::Serialize, serde::Deserialize, Debug, Default, Clone)]
+pub struct Limit {
+    pub price: Price, // Use a custom implementation, so that it can be safely used in a hashmap.
+    pub orders: Vec<Order>,
+
+}
