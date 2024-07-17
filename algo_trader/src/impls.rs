@@ -1,4 +1,6 @@
-use crate::{BidOrAsk, Limit, Order, Price};
+use std::collections::HashMap;
+
+use crate::{BidOrAsk, Limit, Order, OrderBook, Price};
 
 
 impl Order {
@@ -6,6 +8,38 @@ impl Order {
     pub fn new(size: f64, bid_or_ask: BidOrAsk) -> Result<Self, String> {
         Ok(Self { size, bid_or_ask })
     }
+}
+
+impl OrderBook {
+	/// Creates a new OrderBook instance.
+	pub fn new() -> Result<OrderBook, String> {
+		Ok(Self {
+			asks: HashMap::new(),
+			bids: HashMap::new(),
+
+		})
+	}
+
+	/// Adds an order.
+	pub fn add_order(&mut self, price: f64, order: Order) -> Result<(), String> {
+		match order.bid_or_ask {
+			BidOrAsk::BID => {
+				let price = Price::new(price).unwrap();
+				let limit = self.bids.get_mut(&price);
+
+				match limit {
+					Some(val) => {
+						println!("Already have a limit.");
+					},
+					None => {
+						println!("Don't have a limit.");
+					},
+				}
+			},
+			BidOrAsk::ASK => {},
+		}
+		Ok(())
+	}
 }
 
 impl Price {
@@ -35,5 +69,10 @@ impl Limit {
 			},
 			orders: Vec::new(),
 		})	
+	}
+	/// Adds an order to the orders field.
+	pub fn add_order(&mut self, order: Order) -> Result<(), String> {
+		self.orders.push(order);
+		Ok(())
 	}
 }

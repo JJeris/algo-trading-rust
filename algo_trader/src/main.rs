@@ -4,6 +4,7 @@ mod enums;
 mod test;
 
 pub use structs::Order;
+pub use structs::OrderBook;
 pub use structs::Price;
 pub use structs::Limit;
 pub use enums::BidOrAsk;

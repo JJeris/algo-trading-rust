@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use crate::BidOrAsk;
 
 #[derive(serde::Serialize, serde::Deserialize, Debug, Default, Clone)]
@@ -7,6 +9,13 @@ pub struct Order {
 }
 
 #[derive(serde::Serialize, serde::Deserialize, Debug, Default, Clone)]
+pub struct OrderBook {
+    pub asks: HashMap<Price, Limit>, // Need tp add Eq. PartialEq and Hash to the Price struct.
+    pub bids: HashMap<Price, Limit>,
+}
+
+
+#[derive(serde::Serialize, serde::Deserialize, Debug, Default, Clone, Eq, PartialEq, Hash)]
 pub struct Price {
     pub integral: u64,
     pub fractional: u64,
