@@ -1,4 +1,5 @@
-use crate::{structs::Price, BidOrAsk, Order};
+use crate::{BidOrAsk, Limit, Order, Price};
+
 
 impl Order {
     /// Creates a new order instance.
@@ -19,4 +20,20 @@ impl Price {
 			scalar,
 		})
     }
+}
+
+
+impl Limit {
+	/// Creates a new Limit instance.
+	pub fn new(price: f64) -> Result<Self, String> {
+		Ok(Self {
+			price: match Price::new(price) {
+				Ok(val) => {val},
+				Err(err) => {
+					return Err(format!("{}", err));
+				}
+			},
+			orders: Vec::new(),
+		})	
+	}
 }

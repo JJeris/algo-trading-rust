@@ -1,11 +1,11 @@
 mod structs;
 mod impls;
 mod enums;
-
 mod test;
 
 pub use structs::Order;
-use structs::Price;
+pub use structs::Price;
+pub use structs::Limit;
 pub use enums::BidOrAsk;
 pub use test::test;
 
