@@ -2,9 +2,12 @@ mod structs;
 mod impls;
 mod enums;
 
+mod test;
+
 pub use structs::Order;
 use structs::Price;
 pub use enums::BidOrAsk;
+pub use test::test;
 
 fn main() -> Result<(), String> {
     match test() {
@@ -13,18 +16,4 @@ fn main() -> Result<(), String> {
             return Err(format!("{}", err));
         }
     }
-}
-
-
-fn test() -> Result<(), String> {
-    let price = match Price::new(50.53) {
-        Ok(val) => val,
-        Err(err) => {
-            return Err(format!("{}", err));
-        }
-    };
-
-    println!("{:#?}", price);
-    
-    Ok(())
 }
